@@ -3,14 +3,13 @@ defmodule Toltec.Accounts.User do
   import Ecto.Changeset
   alias Toltec.Accounts.User
 
-
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "users" do
-    field :email, :string
-    field :name, :string
-    field :password, :string, virtual: true
-    field :password_hash, :string
+    field(:email, :string)
+    field(:name, :string)
+    field(:password, :string, virtual: true)
+    field(:password_hash, :string)
 
     timestamps()
   end
@@ -18,15 +17,15 @@ defmodule Toltec.Accounts.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:name, :email, :password_hash])
-    |> validate_required([:name, :email, :password_hash])
+    |> cast(attrs, [:name, :email])
+    |> validate_required([:name, :email ])
     |> validate_length(:name, min: 2, max: 255)
     |> validate_length(:email, min: 5, max: 255)
     |> unique_constraint(:email)
     |> validate_format(:email, ~r/@/)
   end
 
-  def registration_changeset( %User{} = user, attrs) do
+  def registration_changeset(%User{} = user, attrs) do
     user
     |> changeset(attrs)
     |> cast(attrs, [:password])
@@ -38,11 +37,10 @@ defmodule Toltec.Accounts.User do
   defp put_password_hash(changeset) do
     case changeset do
       %Ecto.Changeset{valid?: true, changes: %{password: password}} ->
-         put_change(changeset, :password_hash, Comeonin.Argon2.hashpwsalt(password))
+        put_change(changeset, :password_hash, Comeonin.Argon2.hashpwsalt(password))
 
       _ ->
         changeset
     end
-
   end
 end

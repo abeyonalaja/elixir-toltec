@@ -6,8 +6,12 @@ defmodule Toltec.AccountsTest do
   describe "users" do
     alias Toltec.Accounts.User
 
-    @valid_attrs %{email: "some email", name: "some name", password_hash: "some password_hash"}
-    @update_attrs %{email: "some updated email", name: "some updated name", password_hash: "some updated password_hash"}
+    @valid_attrs %{email: "user@gmail.com", name: "user", password: "some password_hash"}
+    @update_attrs %{
+      email: "someupdated@email.com",
+      name: "some updated name",
+      password: "some updated password_hash"
+    }
     @invalid_attrs %{email: nil, name: nil, password_hash: nil}
 
     def user_fixture(attrs \\ %{}) do
@@ -31,9 +35,8 @@ defmodule Toltec.AccountsTest do
 
     test "create_user/1 with valid data creates a user" do
       assert {:ok, %User{} = user} = Accounts.create_user(@valid_attrs)
-      assert user.email == "some email"
-      assert user.name == "some name"
-      assert user.password_hash == "some password_hash"
+      assert user.email == "user@gmail.com"
+      assert user.name == "user"
     end
 
     test "create_user/1 with invalid data returns error changeset" do
@@ -44,9 +47,8 @@ defmodule Toltec.AccountsTest do
       user = user_fixture()
       assert {:ok, user} = Accounts.update_user(user, @update_attrs)
       assert %User{} = user
-      assert user.email == "some updated email"
+      assert user.email == "someupdated@email.com"
       assert user.name == "some updated name"
-      assert user.password_hash == "some updated password_hash"
     end
 
     test "update_user/2 with invalid data returns error changeset" do

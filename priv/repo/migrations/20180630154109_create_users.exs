@@ -1,8 +1,8 @@
 defmodule Toltec.Repo.Migrations.CreateUsers do
   use Ecto.Migration
-  execute("CREATE EXTENSION citext;")
 
   def change do
+    execute("CREATE EXTENSION citext;")
     create table(:users, primary_key: false) do
       add :id, :binary_id, primary_key: true
       add :name, :string
