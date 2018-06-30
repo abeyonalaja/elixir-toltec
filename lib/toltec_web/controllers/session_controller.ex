@@ -13,6 +13,11 @@ defmodule ToltecWeb.SessionController do
         new_conn
         |> put_status(:created)
         |> render("show.json", user: user, jwt: jwt)
+
+      :error ->
+        conn
+        |> put_status(:unauthorized)
+        |> render("error.json", error: "User or email invalid")
     end
   end
 
