@@ -18,7 +18,7 @@ defmodule Toltec.Accounts.User do
   def changeset(user, attrs) do
     user
     |> cast(attrs, [:name, :email])
-    |> validate_required([:name, :email ])
+    |> validate_required([:name, :email])
     |> validate_length(:name, min: 2, max: 255)
     |> validate_length(:email, min: 5, max: 255)
     |> unique_constraint(:email)

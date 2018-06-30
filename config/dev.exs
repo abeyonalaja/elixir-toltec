@@ -44,3 +44,7 @@ config :toltec, Toltec.Repo,
   database: "toltec_dev",
   hostname: "localhost",
   pool_size: 10
+
+config :toltec, Toltec.Auth.Guardian,
+  issuer: "toltec",
+  secret_key: "wM/2Z973bqaOtzJEIoE7gdaYq2TpJ7fAR5WGelljprNpRCZOpRfYoJcMYWCqxXMw"
