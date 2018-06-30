@@ -43,7 +43,6 @@ defmodule Toltec.Accounts do
   def authenticate(email, password) do
     user = Repo.get_by(User, email: String.downcase(email))
 
-
     case check_password(user, password) do
       true -> {:ok, user}
       _ -> :error
@@ -54,8 +53,6 @@ defmodule Toltec.Accounts do
     case user do
       nil -> Comeonin.Argon2.dummy_checkpw()
       _ -> Comeonin.Argon2.checkpw(password, user.password_hash)
-
     end
-
   end
 end
