@@ -50,9 +50,15 @@ defmodule Toltec.Accounts do
 
   """
   def create_user(attrs \\ %{}) do
-    %User{}
-    |> User.changeset(attrs)
-    |> Repo.insert()
+    result =
+      %User{}
+      |> User.registration_changeset(attrs)
+      |> Repo.insert()
+
+    case result do
+      {:ok, user} -> {:ok, %User{user | password: nil}}
+      _ -> result
+    end
   end
 
   @doc """
