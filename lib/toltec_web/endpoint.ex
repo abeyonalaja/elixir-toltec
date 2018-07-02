@@ -43,6 +43,8 @@ defmodule ToltecWeb.Endpoint do
     signing_salt: "uAtEVPIa"
   )
 
+  plug(CORSPlug)
+
   plug(ToltecWeb.Router)
 
   @doc """
